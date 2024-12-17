@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useFetchBooks } from '../../hooks/useFetchBooks';
 import BooksList from '../../components/BooksList';
+import { useNavigation } from '@react-navigation/native';
 
-const HomeScreen: React.FC = () => {
+const HomeScreen: React.FC = ({ navigation }: any) => {
   const { data: books, isLoading, isError } = useFetchBooks();
-
   const handlePressBook = (book: any) => {
-    console.log('Book pressed:', book); // Will navigate to the book details later
+    navigation.navigate('Details', { book });
   };
 
   if (isLoading) {
