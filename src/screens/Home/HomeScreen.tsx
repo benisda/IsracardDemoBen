@@ -1,33 +1,34 @@
 import React from 'react';
-import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { addFavorite } from '../../redux/slices/booksSlice';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { useFetchBooks } from '../../hooks/useFetchBooks';
+import BooksList from '../../components/BooksList';
 
 const HomeScreen: React.FC = () => {
-  const dispatch = useDispatch();
+  const { data: books, isLoading, isError } = useFetchBooks();
 
-  const books = [
-    { title: 'Book 1', releaseDate: '2024-01-01', cover: 'image_url' },
-    { title: 'Book 2', releaseDate: '2024-01-02', cover: 'image_url' },
-  ];
-
-  const handleAddFavorite = (book: any) => {
-    dispatch(addFavorite(book));
+  const handlePressBook = (book: any) => {
+    console.log('Book pressed:', book); // Will navigate to the book details later
   };
+
+  if (isLoading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color="#000" />
+      </View>
+    );
+  }
+
+  if (isError) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.error}>Failed to load books.</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home Screen</Text>
-      <FlatList
-        data={books}
-        keyExtractor={(item) => item.title}
-        renderItem={({ item }) => (
-          <View style={styles.bookContainer}>
-            <Text>{item.title}</Text>
-            <Button title="Add to Favorites" onPress={() => handleAddFavorite(item)} />
-          </View>
-        )}
-      />
+      <BooksList books={books} onPressBook={handlePressBook} />
     </View>
   );
 };
@@ -35,18 +36,17 @@ const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 16,
+  },
+  center: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  bookContainer: {
-    marginBottom: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
+  error: {
+    fontSize: 16,
+    color: 'red',
   },
 });
 
