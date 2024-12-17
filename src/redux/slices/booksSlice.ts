@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Book {
+    index: number;
     title: string;
     releaseDate: string;
     cover: string;
