@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from '../screens/Home/HomeScreen';
 import FavoritesScreen from '../screens/Favorites/FavoritesScreen';
 import DetailsScreen from '../screens/Details/DetailsScreen';
+import HomeSvg from '../assets/svg/HomeSvg';
+import StarSvg from '../assets/svg/StarSvg';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,8 +13,24 @@ const Navigation: React.FC = () => {
     return (
         <NavigationContainer>
             <Tab.Navigator>
-                <Tab.Screen name="Home" component={HomeScreen} />
-                <Tab.Screen name="Favorites" component={FavoritesScreen} />
+                <Tab.Screen
+                    name="Home"
+                    component={HomeScreen}
+                    options={{
+                        tabBarIcon: ({ color, focused, size }) => (
+                            <HomeSvg fill={focused ? color : '#BBB'} width={size} height={size} />
+                        )
+                    }}
+                />
+                <Tab.Screen
+                    name="Favorites"
+                    component={FavoritesScreen}
+                    options={{
+                        tabBarIcon: ({ color, focused, size }) => (
+                            <StarSvg fill={focused ? color : '#BBB'} width={size} height={size} />
+                        )
+                    }}
+                />
                 <Tab.Screen name="Details" component={DetailsScreen}
                     options={{ tabBarItemStyle: { display: "none" } }}
                 />

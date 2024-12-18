@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useFetchBooks } from '../../hooks/useFetchBooks';
 import BooksList from '../../components/BooksList';
-import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen: React.FC = ({ navigation }: any) => {
   const { data: books, isLoading, isError } = useFetchBooks();
