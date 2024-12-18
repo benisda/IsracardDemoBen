@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useFetchBooks } from '../../hooks/useFetchBooks';
 import BooksList from '../../components/BooksList';
+import { DEFAULT_SIDES_PADDING } from '../../consts';
 
 const HomeScreen: React.FC = ({ navigation }: any) => {
   const { data: books, isLoading, isError } = useFetchBooks();
-  const handlePressBook = (book: any) => {
+  const handlePressBook = useCallback((book: any) => {
     navigation.navigate('Details', { book });
-  };
+  }, []);
 
   if (isLoading) {
     return (
@@ -36,7 +37,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    padding: 16,
+    paddingHorizontal: DEFAULT_SIDES_PADDING,
+    paddingTop: DEFAULT_SIDES_PADDING
   },
   center: {
     flex: 1,

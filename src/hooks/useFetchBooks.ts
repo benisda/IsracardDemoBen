@@ -1,11 +1,10 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
-
-const BOOKS_API_URL = 'https://potterapi-fedeperin.vercel.app/en/books';
+import { API_URL } from '../consts';
 
 export const useFetchBooks = () => {
     return useQuery(['books'], async () => {
-        const response = await axios.get(BOOKS_API_URL);
+        const response = await axios.get(API_URL);
         return response.data;
     }, {
         staleTime: 24 * 60 * 60 * 1000, // Cache data for 24 hours

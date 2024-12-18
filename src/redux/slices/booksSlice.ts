@@ -1,13 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface Book {
-    index: number;
-    title: string;
-    releaseDate: string;
-    cover: string;
-    description?: string;
-    pages?: number;
-}
+import { Book } from '../../types/Book';
 
 interface BooksState {
     favorites: Book[];
@@ -26,7 +18,9 @@ const booksSlice = createSlice({
         },
         removeFavorite(state, action: PayloadAction<Book>) {
             state.favorites = state.favorites.filter(
-                (book) => book.title !== action.payload.title
+                (book) => {
+                    return book.index !== action.payload.index
+                }
             );
         },
     },
