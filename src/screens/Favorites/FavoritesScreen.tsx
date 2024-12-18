@@ -1,29 +1,18 @@
-import React from 'react';
-import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeFavorite } from '../../redux/slices/booksSlice';
+import React, { useCallback } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import BooksList from '../../components/BooksList';
 
-const FavoritesScreen: React.FC = () => {
-    const dispatch = useDispatch();
+const FavoritesScreen: React.FC = ({ navigation }: any) => {
+    const handlePressBook = useCallback((book: any) => {
+        navigation.navigate('Details', { book });
+    }, []);
+
     const favorites = useSelector((state: any) => state.books.favorites);
-
-    const handleRemoveFavorite = (book: any) => {
-        dispatch(removeFavorite(book));
-    };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Favorites Screen</Text>
-            <FlatList
-                data={favorites}
-                keyExtractor={(item) => item.title}
-                renderItem={({ item }) => (
-                    <View style={styles.bookContainer}>
-                        <Text>{item.title}</Text>
-                        <Button title="Remove from Favorites" onPress={() => handleRemoveFavorite(item)} />
-                    </View>
-                )}
-            />
+            <BooksList books={favorites} onPressBook={handlePressBook} filterKeys={['title', 'description']} />
         </View>
     );
 };
@@ -31,19 +20,9 @@ const FavoritesScreen: React.FC = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    },
-    bookContainer: {
-        marginBottom: 10,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
-    },
+        backgroundColor: '#f5f5f5',
+        padding: 16,
+    }
 });
 
 export default FavoritesScreen;
