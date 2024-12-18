@@ -1,24 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Button } from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { addFavorite, removeFavorite } from '../../redux/slices/booksSlice';
+import IconButton from '../../components/IconButton';
+import ChevronLeftSvg from '../../assets/svg/ChevronLeftSvg';
+import StarSvg from '../../assets/svg/StarSvg';
 
-type DetailsScreenRouteProp = RouteProp<{ Details: { book: any } }, 'Details'>;
-
-const DetailsScreen: React.FC = () => {
-    const route = useRoute<DetailsScreenRouteProp>();
+const DetailsScreen: React.FC = ({ navigation, route }: any) => {
     const { book } = route.params;
 
     const dispatch = useDispatch();
     const isFavorite = useSelector((state: RootState) =>
-        state.books.favorites.some((fav) => fav.index === book.id)
+        state.books.favorites.some((fav) => fav.index === book.index)
     );
 
     const handleToggleFavorite = () => {
         if (isFavorite) {
-            dispatch(removeFavorite(book.id));
+            dispatch(removeFavorite(book));
         } else {
             dispatch(addFavorite(book));
         }
@@ -26,7 +25,15 @@ const DetailsScreen: React.FC = () => {
 
     return (
         <View style={styles.container}>
-            <Image source={{ uri: book.cover }} style={styles.cover} />
+            <View style={styles.head}>
+                <IconButton onPress={() => navigation.goBack(null)}>
+                    <ChevronLeftSvg height={24} width={24} fill='#333' />
+                </IconButton>
+                <Image source={{ uri: book.cover }} style={styles.cover} />
+                <IconButton onPress={handleToggleFavorite}>
+                    <StarSvg height={24} width={24} fill={isFavorite ? '#FFD700' : '#333'} />
+                </IconButton>
+            </View>
             <Text style={styles.title}>{book.title}</Text>
             <Text style={styles.releaseDate}>Release Date: {book.releaseDate}</Text>
             <Text style={styles.description}>{book.description}</Text>
@@ -45,8 +52,13 @@ const styles = StyleSheet.create({
         padding: 16,
         backgroundColor: '#fff',
     },
+    head: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+    },
     cover: {
-        width: '100%',
+        width: 150,
         height: 200,
         resizeMode: 'contain',
         marginBottom: 16,
