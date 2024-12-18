@@ -12,14 +12,19 @@ const Tab = createBottomTabNavigator();
 const Navigation: React.FC = () => {
     return (
         <NavigationContainer>
-            <Tab.Navigator>
+            <Tab.Navigator
+                backBehavior='history'
+                screenOptions={{
+                    headerShown: false
+                }}
+            >
                 <Tab.Screen
                     name="Home"
                     component={HomeScreen}
                     options={{
                         tabBarIcon: ({ color, focused, size }) => (
                             <HomeSvg fill={focused ? color : '#BBB'} width={size} height={size} />
-                        )
+                        ),
                     }}
                 />
                 <Tab.Screen
