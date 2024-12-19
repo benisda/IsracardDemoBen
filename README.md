@@ -54,11 +54,7 @@ npx react-native run-android
 ## Screenshots
 
 ### iOS
-<img src="./src/assets/screenshots/ios-home.png" width="200" />
-<img src="./src/assets/screenshots/ios-favs.png" width="200" />
-<img src="./src/assets/screenshots/ios-details.png" width="200" />
+<img src="./src/assets/screenshots/ios-home.png" width="200" /> <img src="./src/assets/screenshots/ios-favs.png" width="200" /> <img src="./src/assets/screenshots/ios-details.png" width="200" />
 
 ### Android
-<img src="./src/assets/screenshots/android-home.png" width="200" />
-<img src="./src/assets/screenshots/android-favs.png" width="200" />
-<img src="./src/assets/screenshots/android-details.png" width="200" />
+<img src="./src/assets/screenshots/android-home.png" width="200" /> <img src="./src/assets/screenshots/android-favs.png" width="200" /> <img src="./src/assets/screenshots/android-details.png" width="200" />
