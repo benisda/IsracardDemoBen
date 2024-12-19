@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Button } from 'react-native';
+import { View, Text, StyleSheet, Image, Button, Share } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { addFavorite, removeFavorite } from '../redux/slices/booksSlice';
 import IconButton from '../components/IconButton';
 import ChevronLeftSvg from '../assets/svg/ChevronLeftSvg';
 import StarSvg from '../assets/svg/StarSvg';
+import ShareSvg from '../assets/svg/ShareSvg';
 
 const DetailsScreen: React.FC = ({ navigation, route }: any) => {
     const { book } = route.params;
@@ -23,6 +24,19 @@ const DetailsScreen: React.FC = ({ navigation, route }: any) => {
         }
     };
 
+    const handleShare = async () => {
+        try {
+            const message = `${book.title}\n\n${book.description}\n\n${book.cover}`;
+            await Share.share({
+                message,
+                title: book.title,
+                url: book.cover,
+            });
+        } catch (error) {
+            console.error('Error sharing content:', error);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.head}>
@@ -30,9 +44,14 @@ const DetailsScreen: React.FC = ({ navigation, route }: any) => {
                     <ChevronLeftSvg height={24} width={24} fill='#333' />
                 </IconButton>
                 <Image source={{ uri: book.cover }} style={styles.cover} />
-                <IconButton onPress={handleToggleFavorite}>
-                    <StarSvg height={24} width={24} fill={isFavorite ? '#FFD700' : '#333'} />
-                </IconButton>
+                <View style={{ gap: 10 }}>
+                    <IconButton onPress={handleToggleFavorite}>
+                        <StarSvg height={24} width={24} fill={isFavorite ? '#FFD700' : '#333'} />
+                    </IconButton>
+                    <IconButton onPress={handleShare}>
+                        <ShareSvg height={24} width={24} fill={'#333'} />
+                    </IconButton>
+                </View>
             </View>
             <Text style={styles.title}>{book.title}</Text>
             <Text style={styles.releaseDate}>Release Date: {book.releaseDate}</Text>
