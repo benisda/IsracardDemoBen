@@ -68,7 +68,7 @@ const BooksList: React.FC<BooksListProps> = ({ books, onPressBook, filterKeys = 
                 )}
                 keyExtractor={(item) => item.index.toString()}
                 numColumns={listDisplayMode === 'grid' ? 2 : 1}
-
+                estimatedItemSize={listDisplayMode === 'grid' ? 203 : 136}
             />
         </View>
     );

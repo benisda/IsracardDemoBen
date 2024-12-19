@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { Fragment } from 'react'
 import RadioLinkOption from './RadioLinkOption'
 import { Svg } from '../../assets/svg/Svg'
 import { SPACE_BASIS } from '../../consts'
@@ -21,9 +21,8 @@ const RadioLink = ({ options, value, onChange }: RadioLinkProps) => {
     return (
         <View style={styles.container}>
             {options.map((option, index) => (
-                <>
+                <Fragment key={option.value}>
                     <RadioLinkOption
-                        key={option.value}
                         label={option.label}
                         icon={option.icon}
                         selected={value === option.value}
@@ -32,7 +31,7 @@ const RadioLink = ({ options, value, onChange }: RadioLinkProps) => {
                     {
                         index !== options.length - 1 && <Separator key={`separator-${option.value}`} />
                     }
-                </>
+                </Fragment>
             ))}
         </View>
     )
