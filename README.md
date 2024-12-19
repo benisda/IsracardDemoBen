@@ -22,3 +22,31 @@
 }
 ```
 - לגבי ספלאש: הייתי משתמש בספרייה `react-native-splash-screen` ומבצע קונפיגורציה בצד הנייטיב של האפליקציה.
+
+## How to run the project
+
+1. Clone the project
+```bash
+git clone https://github.com/benisda/IsracardDemoBen.git
+```
+2. Install dependencies
+```bash
+cd IsracardDemoBen
+npm install
+```
+if you are using a Mac, you should also install the pods:
+```bash
+cd ios && pod install && cd ..
+```
+
+3. Run the project
+
+for iOS:
+```bash
+npx react-native run-ios
+```
+
+for Android:
+```bash
+npx react-native run-android
+```
