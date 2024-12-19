@@ -8,6 +8,8 @@ import RadioLink from '../RadioLink/RadioLink';
 import AlphabetFilterSvg from '../../assets/svg/AlphabetFilterSvg';
 import CalendarSvg from '../../assets/svg/CalendarSvg';
 import PagesSvg from '../../assets/svg/PagesSvg';
+import GridSvg from '../../assets/svg/GridSvg';
+import LinesSvg from '../../assets/svg/LinesSvg';
 
 interface BooksListProps {
     books: Book[];
@@ -15,12 +17,15 @@ interface BooksListProps {
     filterKeys?: string[];
 }
 
+export type ListDisplayMode = 'grid' | 'list';
+
 const DEBOUNCE_TIME = 300;
 
 const BooksList: React.FC<BooksListProps> = ({ books, onPressBook, filterKeys = ['title'] }) => {
     const [search, setSearch] = useState('');
     const [filteredBooks, setFilteredBooks] = useState(books);
     const [sorting, setSorting] = useState('releaseDate');
+    const [listDisplayMode, setListDisplayMode] = useState<ListDisplayMode>('list');
 
     const sortingFunctionTranslator = {
         title: (a: Book, b: Book) => a.title.localeCompare(b.title),
@@ -39,7 +44,7 @@ const BooksList: React.FC<BooksListProps> = ({ books, onPressBook, filterKeys = 
             }).sort(sortingFunctionTranslator[sorting as keyof typeof sortingFunctionTranslator]));
         }, DEBOUNCE_TIME);
         return () => clearTimeout(timeout);
-    }, [search, books, sorting]);
+    }, [search, books, sorting, listDisplayMode]);
 
     return (
         <View style={styles.container}>
@@ -52,18 +57,18 @@ const BooksList: React.FC<BooksListProps> = ({ books, onPressBook, filterKeys = 
                 ]} value={sorting} onChange={setSorting} />
 
                 <RadioLink options={[
-                    { label: 'Title', value: 'title', icon: AlphabetFilterSvg },
-                    { label: 'Release Date', value: 'releaseDate', icon: CalendarSvg },
-                    { label: 'Pages', value: 'pages', icon: PagesSvg }
-                ]} value={sorting} onChange={setSorting} />
+                    { label: 'Grid', value: 'grid', icon: GridSvg },
+                    { label: 'Release Date', value: 'list', icon: LinesSvg }
+                ]} value={listDisplayMode} onChange={setListDisplayMode} />
             </View>
             <FlashList
                 data={filteredBooks}
                 renderItem={({ item }) => (
-                    <BookItem book={item} onPressBook={onPressBook} />
+                    <BookItem book={item} onPressBook={onPressBook} displayMode={listDisplayMode} />
                 )}
-                estimatedItemSize={100}
                 keyExtractor={(item) => item.index.toString()}
+                numColumns={listDisplayMode === 'grid' ? 2 : 1}
+
             />
         </View>
     );

@@ -15,7 +15,8 @@ const Navigation: React.FC = () => {
             <Tab.Navigator
                 backBehavior='history'
                 screenOptions={{
-                    headerShown: false
+                    headerShown: false,
+                    animation: 'shift'
                 }}
             >
                 <Tab.Screen
