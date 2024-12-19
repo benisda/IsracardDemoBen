@@ -1,0 +1,1 @@
+export type BooksFilterType = 'title' | 'pages' | 'releaseDate';

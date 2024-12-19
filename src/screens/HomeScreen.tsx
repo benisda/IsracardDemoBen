@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { useFetchBooks } from '../../hooks/useFetchBooks';
-import BooksList from '../../components/BooksList';
-import { DEFAULT_SIDES_PADDING } from '../../consts';
+import { useFetchBooks } from '../hooks/useFetchBooks';
+import BooksList from '../components/BooksList/BooksList';
+import { DEFAULT_SIDES_PADDING } from '../consts';
 
 const HomeScreen: React.FC = ({ navigation }: any) => {
   const { data: books, isLoading, isError } = useFetchBooks();
