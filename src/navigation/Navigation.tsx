@@ -1,9 +1,9 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from '../screens/Home/HomeScreen';
-import FavoritesScreen from '../screens/Favorites/FavoritesScreen';
-import DetailsScreen from '../screens/Details/DetailsScreen';
+import HomeScreen from '../screens/HomeScreen';
+import FavoritesScreen from '../screens/FavoritesScreen';
+import DetailsScreen from '../screens/DetailsScreen';
 import HomeSvg from '../assets/svg/HomeSvg';
 import StarSvg from '../assets/svg/StarSvg';
 

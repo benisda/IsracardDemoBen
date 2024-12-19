@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
-import BooksList from '../../components/BooksList';
+import BooksList from '../components/BooksList/BooksList';
 
 const FavoritesScreen: React.FC = ({ navigation }: any) => {
     const handlePressBook = useCallback((book: any) => {

@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { addFavorite, removeFavorite } from '../../redux/slices/booksSlice';
-import IconButton from '../../components/IconButton';
-import ChevronLeftSvg from '../../assets/svg/ChevronLeftSvg';
-import StarSvg from '../../assets/svg/StarSvg';
+import { RootState } from '../redux/store';
+import { addFavorite, removeFavorite } from '../redux/slices/booksSlice';
+import IconButton from '../components/IconButton';
+import ChevronLeftSvg from '../assets/svg/ChevronLeftSvg';
+import StarSvg from '../assets/svg/StarSvg';
 
 const DetailsScreen: React.FC = ({ navigation, route }: any) => {
     const { book } = route.params;
