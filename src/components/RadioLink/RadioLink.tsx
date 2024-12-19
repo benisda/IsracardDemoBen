@@ -14,7 +14,7 @@ type RadioOption = {
 type RadioLinkProps = {
     options: RadioOption[]
     value: string
-    onChange: (value: string) => void
+    onChange: (value: any) => void
 }
 
 const RadioLink = ({ options, value, onChange }: RadioLinkProps) => {
